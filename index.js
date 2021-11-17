@@ -92,7 +92,13 @@ function isVerified(user) {
   }
 }
 
-var tweetCount = user1.tweets.length;
+function getParameter(parameterName) {
+  let parameters = new URLSearchParams(window.location.search);
+  return parameters.get(parameterName)
+}
+
+if (getParameter('user') === 'user1') {
+  var tweetCount = user1.tweets.length;
 var header = document.querySelector('.header');
 header.innerHTML = `
         <h2>${isVerified(user1.verified)}</i></h2>
@@ -170,7 +176,91 @@ for (let tweet of user1.tweets) {
     tweets.innerHTML = `
     <p class="no-tweets">${user1.userName} hasnt tweeted yet</p>`
   }
+}
 
-  //i need to write a function that for every tweet it generates the profile picture and all into plus tweets
+if (getParameter('user') === 'user2') {
+  var tweetCount = user2.tweets.length;
+var header = document.querySelector('.header');
+header.innerHTML = `
+        <h2>${isVerified(user2.verified)}</i></h2>
+        <p>${tweetCount} Tweets</p>`;
+var photoContainer = document.querySelector('.cover-photo-container');
+photoContainer.style.backgroundImage = `url('${user2.coverPhotoURL}')`;
+var profileImage = document.querySelector('.profile-image');
+profileImage.style.backgroundImage = `url('${user2.avatarURL}')`
+var profileInfo = document.querySelector('.profile-info-section');
+profileInfo.innerHTML = `
+  <div class="follow-container">
+    <button class="follow-btn">Follow</button>
+  </div>
+  <div class="user-info">
+    <h2>${isVerified(user2.verified)}</h2>
+  </div>
+  <div class="user-name">
+    <p>${user2.userName}</p>
+  </div>
+  <div class="joined-date">
+    <p><i class="bi bi-calendar3"></i> Joined ${user2.joinedDate}</p>
+  </div>
+  <div class="following">
+    <p><span class="follow-num">${abbreviateNumber(user2.followingCount)}</span> Following</p>
+    <p><span class="follow-num">${abbreviateNumber(user2.followerCount)}</span> Followers</p>
+  </div>`;
+  var tabs = document.querySelector('.tabs-section');
+  tabs.innerHTML = `
+  <button>Tweets</button>
+  <button><span>Tweets & Replies</span></button>
+  <button>Media</button>
+  <button>Likes</button>`
+  var tweets = document.querySelector('.tweets-section');
+  
+
+var tweetText = []
+for (let tweet of user2.tweets) {
+  tweetText.push(tweet.text)
+}
+var tweetTime = []
+for (let tweet of user2.tweets) {
+  tweetTime.push(tweet.timestamp)
+}
+
+  if (user2.tweets.length > 0){
+    user2.tweets.forEach(function (tweet, i) {
+      var rowDiv = document.createElement('div');
+      rowDiv.className = "tweet-content"
+      rowDiv.innerHTML = `
+      <div class="tweet-photo">
+      <img class="photo" src='${user2.avatarURL}'>
+    </div>
+    <div class="tweet-stats">
+      <div class="tweet-upper">
+      <div>
+        <h3 class="tweet-display-name">${isVerified(user2.verified)}</h3>
+      </div>
+      <div>
+        <p class="tweet-user-name">${user2.userName}</p>
+      </div>
+      <div>
+        <p class="tweet-time">${new Date(tweetTime[i]).toLocaleString()}</p>
+      </div>
+    </div>
+    <div class="tweet-lower">
+      <div>
+        <p class="tweet-text">${tweetText[i]}</p>
+      </div>
+    </div>
+    </div>
+      `;
+      tweets.appendChild(rowDiv)
+    })
+  } else {
+    tweets.innerHTML = `
+    <p class="no-tweets">${user2.userName} hasnt tweeted yet</p>`
+  }
+}
+
+
+
+
   
   
