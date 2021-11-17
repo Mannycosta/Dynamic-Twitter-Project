@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100;200;300;400;500;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  font-family: 'Libre Franklin', sans-serif;
+}
+
+.card {
+  margin: auto;
+  width: 598px;
+  border: 1px solid #f1f1f1;
+  margin-bottom: 100px;
+}
+
+.bi-patch-check-fill {
+  color: rgb(29, 155, 240);
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.header {
+  margin: 5px 72px;
+}
+
+.header p {
+  font-size: 13px;
+}
+
+p {
+  font-weight: 400;
+  color: rgb(83, 100, 113);
+  font-size: 14px;
+}
+
+.profile-card {
+  height: 400px;
+  position: relative;
+}
+
+.cover-photo-container {
+  height: 50%;
+  background-size: contain;
+}
+
+.cover-photo-container:hover {
+  cursor: pointer;
+}
+
+.profile-image {
+  background-size: contain;
+  position: absolute;
+  width: 133.5px;
+  height: 133.5px;
+  border-radius: 50%;
+  border: 4px solid white;
+  left: 12px;
+  top: 30%;
+}
+
+.profile-image:hover .overlay {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: #000;
+  opacity: 0.1;
+  border-radius: 50%;
+}
+
+.profile-info-section {
+  margin: 0px 15px;
+}
+
+.profile-info-section h2 {
+  font-weight: 800;
+}
+
+.follow-container {
+  display: flex;
+  justify-content: right;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.follow-btn {
+  border: none;
+  color: white;
+  background-color: rgb(15, 20, 25);
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 700;
+  transition: opacity .25s ease-in-out;
+}
+
+.follow-btn:hover {
+  cursor: pointer;
+  opacity: .90;
+  transition: opacity .25s ease-in-out;
+}
+
+.user-info {
+  margin-bottom: 3px;
+}
+
+.user-name {
+  margin-bottom: 15px;
+}
+
+.joined-date {
+  margin-bottom: 15px;
+}
+
+.following {
+  display: flex;
+  width: 38%;
+  justify-content: space-between;
+}
+
+.follow-num {
+  color: black;
+  font-weight: 700;
+}
+.tabs-section {
+  display:flex;
+  justify-content: space-between;
+}
+.tabs-section button {
+  font-weight: 500;
+  font-size: 15px;
+  background: transparent;
+  border: none;
+  color:rgb(83, 100, 113);
+  align-items: center;
+  padding: 20px 0px;
+  flex-grow: 1;
+  border-bottom: 1px solid #f1f1f1;
+  transition: background-color .15s ease-in-out;
+}
+.tabs-section button:hover {
+  cursor: pointer;
+  background-color: lightgrey;
+  transition: background-color .15s ease-in-out;
+}
+.tabs-section button:active {
+  color: black;
+}
+.tweet-content {
+  display: flex;
+  border-bottom: 1px solid #f1f1f1;
+}
+.tweet-photo {
+  float: left;
+  margin: 10px 15px;
+}
+.photo {
+  width: 48px;
+  border-radius: 50%;
+}
+.tweet-upper {
+  display: flex;
+  margin-bottom: 5px;
+}
+.tweet-lower {
+  height: 50%
+}
+.tweet-display-name {
+  font-size: 15px;
+  margin: 13px 5px 0px 0px;
+}
+.tweet-user-name {
+  margin: 13px 5px 0px 0px;
+}
+.tweet-time {
+  margin: 13px 5px 0px 0px;
+}
+.tweet-text {
+  color: black;
+}
+.no-tweets {
+  margin: 50px 33%;
+}
