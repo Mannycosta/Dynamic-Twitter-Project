@@ -22,7 +22,8 @@ h2 {
 }
 
 .header {
-  margin: 5px 72px;
+  margin: 5px 0px 0px 72px;
+  height: 53px;
 }
 
 .header p {
@@ -178,6 +179,7 @@ p {
 }
 .tweet-text {
   color: black;
+  margin-bottom: 20px;
 }
 .no-tweets {
   margin: 50px 33%;

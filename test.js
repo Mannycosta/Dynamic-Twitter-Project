@@ -48,9 +48,31 @@ var users = {
   },
 }
 var tweetText = []
-for (let tweet of user1.tweets) {
+for (let tweet of users.user1.tweets) {
   tweetText.push(tweet.text)
 }
 console.log(tweetText[0])
 
- 
+
+
+
+function getParameter(parameterName) {
+  let parameters = new URLSearchParams(window.location.search);
+  return parameters.get(parameterName)
+}
+var userId = ''
+
+  if (getParameter('user') === 'user1') {
+    userId = `${getParameter('user')}`
+  }
+  if (getParameter('user') === 'user2') {
+    userId = `${getParameter('user')}`
+  }
+
+  console.log(users)
+  
+
+  
+
+ // if query string reads user1, then change the name of variable to user1
+ // if query string reads user1, look for object named user1, if it exists then change the name of the variable to user1
