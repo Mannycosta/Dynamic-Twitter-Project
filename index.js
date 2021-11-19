@@ -6,8 +6,12 @@ var user1 = {
   followerCount: 47900000,
   avatarURL: 'assets/elonmusk.jpg',
   coverPhotoURL: 'assets/elonmusk-cover.jpeg',
-  verified : true,
+  verified: true,
   tweets: [{
+      text: 'I am the first to reach 200 Billion dollars, pretty cool',
+      timestamp: '09/02/2021 10:21:19'
+    },
+    {
       text: 'I admit to judging books by their cover',
       timestamp: '2/10/2021 00:01:20'
     },
@@ -18,10 +22,6 @@ var user1 = {
     {
       text: 'Out on launch pad, engine swap underway',
       timestamp: '2/09/2021 12:11:51'
-    },
-    {
-      text: 'I am the first to reach 200 Billion dollars, pretty cool',
-      timestamp: '09/02/2021 10:21:19'
     },
   ],
 };
@@ -34,7 +34,7 @@ var user2 = {
   followerCount: 53800000,
   avatarURL: 'assets/billgates.jpg',
   coverPhotoURL: 'assets/billgates-cover.jpeg',
-  verified : false,
+  verified: true,
   tweets: [{
       text: 'Everybody asks, how is the next Windows coming along? But nobody asks how is Bill? :/',
       timestamp: '2/10/2021 00:01:20'
@@ -57,7 +57,7 @@ var user3 = {
   followerCount: 1928,
   avatarURL: 'assets/code.jpg',
   coverPhotoURL: 'assets/baseball.jpg',
-  verified : true,
+  verified: false,
   tweets: [{
       text: 'This is my dynamic twitter project',
       timestamp: '2/10/2021 00:01:20'
@@ -72,23 +72,27 @@ var user3 = {
     },
     {
       text: 'And checking if verified feature works',
-      timestamp: '09/02/2021 10:21:19'
+      timestamp: '2/09/2021 18:37:12'
     },
     {
       text: 'So far so good',
-      timestamp: '09/02/2021 10:21:19'
+      timestamp: '2/09/2021 18:37:12'
+    },
+    {
+      text: 'Adding tweets to test the scroll feature',
+      timestamp: '2/09/2021 18:37:12'
     },
     {
       text: 'Let me know how I did!',
-      timestamp: '09/02/2021 10:21:19'
+      timestamp: '2/09/2021 18:37:12'
     },
     {
       text: 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.',
-      timestamp: '09/02/2021 10:21:19'
+      timestamp: '2/09/2021 18:37:12'
     },
     {
       text: 'Euismod lacinia at quis risus sed vulputate odio. Semper viverra nam libero justo laoreet. Suspendisse potenti nullam ac tortor vitae purus. Ultricies mi quis hendrerit dolor magna eget est lorem. Eros in cursus turpis massa tincidunt dui ut ornare lectus. Vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean. Sem et tortor consequat id porta nibh venenatis cras. Interdum varius sit amet mattis vulputate enim nulla aliquet porttitor.',
-      timestamp: '09/02/2021 10:21:19'
+      timestamp: '2/09/2021 18:37:12'
     },
   ],
 };
@@ -99,42 +103,20 @@ function getParameter(parameterName) {
   return parameters.get(parameterName)
 }
 
-function timeSince(date) {
 
-  var seconds = Math.floor((new Date() - date) / 1000);
-
-  var interval = seconds / 31536000;
-
-  if (interval > 1) {
-    return Math.floor(interval) + " years ago";
-  }
-  interval = seconds / 2592000;
-  if (interval > 1) {
-    return Math.floor(interval) + " months ago";
-  }
-  interval = seconds / 86400;
-  if (interval > 1) {
-    return Math.floor(interval) + " days ago";
-  }
-  interval = seconds / 3600;
-  if (interval > 1) {
-    return Math.floor(interval) + " hours ago";
-  }
-  interval = seconds / 60;
-  if (interval > 1) {
-    return Math.floor(interval) + " minutes ago";
-  }
-  return Math.floor(seconds) + " seconds ago";
-}
 function abbreviateNumber(num, fixed) {
-  if (num === null) { return null; } // terminate early
-  if (num === 0) { return '0'; } // terminate early
+  if (num === null) {
+    return null;
+  } // terminate early
+  if (num === 0) {
+    return '0';
+  } // terminate early
   fixed = (!fixed || fixed < 0) ? 0 : fixed; // number of decimal places to show
   var b = (num).toPrecision(2).split("e"), // get power
-      k = b.length === 1 ? 0 : Math.floor(Math.min(b[1].slice(1), 14) / 3), // floor at decimals, ceiling at trillions
-      c = k < 1 ? num.toFixed(0 + fixed) : (num / Math.pow(10, k * 3) ).toFixed(1 + fixed), // divide by power
-      d = c < 0 ? c : Math.abs(c), // enforce -0 is 0
-      e = d + ['', 'K', 'M', 'B', 'T'][k]; // append power
+    k = b.length === 1 ? 0 : Math.floor(Math.min(b[1].slice(1), 14) / 3), // floor at decimals, ceiling at trillions
+    c = k < 1 ? num.toFixed(0 + fixed) : (num / Math.pow(10, k * 3)).toFixed(1 + fixed), // divide by power
+    d = c < 0 ? c : Math.abs(c), // enforce -0 is 0
+    e = d + ['', 'K', 'M', 'B', 'T'][k]; // append power
   return e;
 }
 
@@ -149,8 +131,16 @@ function isVerified(user) {
 var tweetCount = window[getParameter('user')].tweets.length;
 var header = document.querySelector('.header');
 header.innerHTML = `
-        <h2>${isVerified(window[getParameter('user')].verified)}</i></h2>
-        <p>${tweetCount} Tweets</p>`;
+  <div>
+    <button class="timeline-btn" onclick="window.location.href='timeline.html';"><i class="bi bi-arrow-left-short"></i></button>
+  </div>
+  <div class="header-name">
+    <h2>${isVerified(window[getParameter('user')].verified)}</h2>
+    <p>${tweetCount} Tweets</p>
+  </div>
+  <div>
+    <button class="sticky-btn">Follow</button>
+  </div`;
 var photoContainer = document.querySelector('.cover-photo-container');
 photoContainer.style.backgroundImage = `url('${window[getParameter('user')].coverPhotoURL}')`;
 var profileImage = document.querySelector('.profile-image');
@@ -173,14 +163,14 @@ profileInfo.innerHTML = `
     <p><span class="follow-num">${abbreviateNumber(window[getParameter('user')].followingCount)}</span> Following</p>
     <p><span class="follow-num">${abbreviateNumber(window[getParameter('user')].followerCount)}</span> Followers</p>
   </div>`;
-  var tabs = document.querySelector('.tabs-section');
-  tabs.innerHTML = `
+var tabs = document.querySelector('.tabs-section');
+tabs.innerHTML = `
   <button>Tweets</button>
   <button><span>Tweets & Replies</span></button>
   <button>Media</button>
   <button>Likes</button>`
-  var tweets = document.querySelector('.tweets-section');
-  
+var tweets = document.querySelector('.tweets-section');
+
 
 var tweetText = []
 for (let tweet of window[getParameter('user')].tweets) {
@@ -191,36 +181,63 @@ for (let tweet of window[getParameter('user')].tweets) {
   tweetTime.push(tweet.timestamp)
 }
 
-  if (window[getParameter('user')].tweets.length > 0){
-    window[getParameter('user')].tweets.forEach(function (tweet, i) {
-      var rowDiv = document.createElement('div');
-      rowDiv.className = "tweet-content"
-      rowDiv.innerHTML = `
-      <div class="tweet-photo">
+if (window[getParameter('user')].tweets.length > 0) {
+  window[getParameter('user')].tweets.forEach(function (tweet, i) {
+    var rowDiv = document.createElement('div');
+    rowDiv.className = "tweet-content"
+    rowDiv.innerHTML = `
+    <div class="tweet-photo">
       <img class="photo" src='${window[getParameter('user')].avatarURL}'>
     </div>
     <div class="tweet-stats">
       <div class="tweet-upper">
-      <div>
-        <h3 class="tweet-display-name">${isVerified(window[getParameter('user')].verified)}</h3>
+        <div>
+          <h3 class="tweet-display-name">${isVerified(window[getParameter('user')].verified)}</h3>
+        </div>
+        <div>
+          <p class="tweet-user-name">${window[getParameter('user')].userName}</p>
+        </div>
+        <div>
+          <p class="tweet-time">${new Date(tweetTime[i]).toLocaleString()}</p>
+        </div>
       </div>
-      <div>
-        <p class="tweet-user-name">${window[getParameter('user')].userName}</p>
+      <div class="tweet-lower">
+        <div>
+          <p class="tweet-text">${tweetText[i]}</p>
+        </div>
       </div>
-      <div>
-        <p class="tweet-time">${new Date(tweetTime[i]).toLocaleString()}</p>
-      </div>
-    </div>
-    <div class="tweet-lower">
-      <div>
-        <p class="tweet-text">${tweetText[i]}</p>
-      </div>
-    </div>
     </div>
       `;
-      tweets.appendChild(rowDiv)
-    })
-  } else {
-    tweets.innerHTML = `
+    tweets.appendChild(rowDiv)
+  })
+} else {
+  tweets.innerHTML = `
     <p class="no-tweets">${window[getParameter('user')].userName} hasnt tweeted yet</p>`
+}
+
+window.onscroll = function () {
+  stickyHeader();
+  hiddenButton();
+};
+
+var sticky = header.offsetTop;
+var stickyBtn = document.querySelector('.sticky-btn')
+
+function stickyHeader() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
   }
+}
+
+function hiddenButton() {
+  if (document.body.scrollTop > 193 || document.documentElement.scrollTop > 193) {
+    stickyBtn.style.visibility = "visible";
+  } else {
+    stickyBtn.style.visibility = "hidden";
+  }
+}
+
+
+

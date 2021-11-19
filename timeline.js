@@ -99,36 +99,73 @@ var users = {
   }
 }
 
+
+var allTweets = []
 var tweetText = []
 var tweetTime = []
 var userId = []
-var allTweets = []
+
 
 
 for (var key in users) {
-  userId.push(key)
+  userId.push(users[key].displayName)
   for (var text of users[key].tweets) {
-    tweetText.push(text.text)
-    tweetTime.push(text.timestamp)
     allTweets.push(text)
+    
   }
 }
 
-tweetTime.sort(function(a, b) {
-  var c = new Date(a);
-  var d = new Date(b);
+allTweets.sort(function(a, b) {
+  var c = new Date(a.timestamp);
+  var d = new Date(b.timestamp);
   return c-d;
 });
 
-tweetTime.reverse();
-
-console.log(tweetTime)
+allTweets.reverse()
 
 
 
 
 
-  
 
- // if query string reads user1, then change the name of variable to user1
- // if query string reads user1, look for object named user1, if it exists then change the name of the variable to user1
+function isVerified(user) {
+  if (user === true) {
+    return users[key].displayName + ' <i class="bi bi-patch-check-fill"></i>'
+  } else {
+    return users[key].displayName
+  }
+}
+var tweets = document.querySelector('.timeline-tweets')
+
+userId.forEach(function (user, i) {
+  console.log(user, i)
+})
+
+
+allTweets.forEach(function (tweet, i) {
+  var rowDiv = document.createElement('div');
+  rowDiv.className = "tweet-content"
+  rowDiv.innerHTML = `
+  <div class="tweet-photo">
+    <img class="photo" src='${users[key].avatarURL}'>
+  </div>
+  <div class="tweet-stats">
+    <div class="tweet-upper">
+      <div>
+        <h3 class="tweet-display-name">${isVerified(users[key].verified)}</h3>
+      </div>
+      <div>
+        <p class="tweet-user-name">${users[key].userName}</p>
+      </div>
+      <div>
+        <p class="tweet-time">${new Date(tweet.timestamp).toLocaleString()}</p>
+      </div>
+    </div>
+    <div class="tweet-lower">
+      <div>
+        <p class="tweet-text">${tweet.text}</p>
+      </div>
+    </div>
+  </div>
+    `;
+  tweets.appendChild(rowDiv) } )
