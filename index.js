@@ -57,7 +57,7 @@ var user3 = {
   followerCount: 1928,
   avatarURL: 'assets/code.jpg',
   coverPhotoURL: 'assets/baseball.jpg',
-  isVerified: false,
+  verified: false,
   tweets: [{
       text: 'This is my dynamic twitter project',
       timestamp: '2/10/2021 00:01:20'
@@ -98,9 +98,9 @@ var user3 = {
 };
 
 
-function getUsers(userNum) {
-  let users = new URLSearchParams(window.location.search);
-  return users.get(userNum)
+function getParameter(parameterName) {
+  let parameters = new URLSearchParams(window.location.search);
+  return parameters.get(parameterName)
 }
 
 
@@ -120,48 +120,50 @@ function abbreviateNumber(num, fixed) {
   return e;
 }
 
+
+
 function getDisplayName(user) {
-  if (user.isVerified) {
+  if (user.verified) {
     return user.displayName + ' <i class="bi bi-patch-check-fill"></i>'
   } else {
     return user.displayName
   }
 }
 
-var tweetCount = window[getUsers('user')].tweets.length;
+var tweetCount = window[getParameter('user')].tweets.length;
 var header = document.querySelector('.header');
 header.innerHTML = `
   <div>
     <button class="timeline-btn" onclick="window.location.href='timeline.html';"><i class="bi bi-arrow-left-short"></i></button>
   </div>
   <div class="header-name">
-    <h2>${getDisplayName(window[getUsers('user')])}</h2>
+    <h2>${getDisplayName(window[getParameter('user')])}</h2>
     <p>${tweetCount} Tweets</p>
   </div>
   <div>
     <button class="sticky-btn">Follow</button>
   </div`;
 var photoContainer = document.querySelector('.cover-photo-container');
-photoContainer.style.backgroundImage = `url('${window[getUsers('user')].coverPhotoURL}')`;
+photoContainer.style.backgroundImage = `url('${window[getParameter('user')].coverPhotoURL}')`;
 var profileImage = document.querySelector('.profile-image');
-profileImage.style.backgroundImage = `url('${window[getUsers('user')].avatarURL}')`
+profileImage.style.backgroundImage = `url('${window[getParameter('user')].avatarURL}')`
 var profileInfo = document.querySelector('.profile-info-section');
 profileInfo.innerHTML = `
   <div class="follow-container">
     <button class="follow-btn">Follow</button>
   </div>
   <div class="user-info">
-    <h2>${getDisplayName(window[getUsers('user')])}</h2>
+    <h2>${getDisplayName(window[getParameter('user')])}</h2>
   </div>
   <div class="user-name">
-    <p>${window[getUsers('user')].userName}</p>
+    <p>${window[getParameter('user')].userName}</p>
   </div>
   <div class="joined-date">
-    <p><i class="bi bi-calendar3"></i> Joined ${window[getUsers('user')].joinedDate}</p>
+    <p><i class="bi bi-calendar3"></i> Joined ${window[getParameter('user')].joinedDate}</p>
   </div>
   <div class="following">
-    <p><span class="follow-num">${abbreviateNumber(window[getUsers('user')].followingCount)}</span> Following</p>
-    <p><span class="follow-num">${abbreviateNumber(window[getUsers('user')].followerCount)}</span> Followers</p>
+    <p><span class="follow-num">${abbreviateNumber(window[getParameter('user')].followingCount)}</span> Following</p>
+    <p><span class="follow-num">${abbreviateNumber(window[getParameter('user')].followerCount)}</span> Followers</p>
   </div>`;
 var tabs = document.querySelector('.tabs-section');
 tabs.innerHTML = `
@@ -173,29 +175,29 @@ var tweets = document.querySelector('.tweets-section');
 
 
 var tweetText = []
-for (let tweet of window[getUsers('user')].tweets) {
+for (let tweet of window[getParameter('user')].tweets) {
   tweetText.push(tweet.text)
 }
 var tweetTime = []
-for (let tweet of window[getUsers('user')].tweets) {
+for (let tweet of window[getParameter('user')].tweets) {
   tweetTime.push(tweet.timestamp)
 }
 
-if (window[getUsers('user')].tweets.length > 0) {
-  window[getUsers('user')].tweets.forEach(function (tweet, i) {
+if (window[getParameter('user')].tweets.length > 0) {
+  window[getParameter('user')].tweets.forEach(function (tweet, i) {
     var rowDiv = document.createElement('div');
     rowDiv.className = "tweet-content"
     rowDiv.innerHTML = `
     <div class="tweet-photo">
-      <img class="photo" src='${window[getUsers('user')].avatarURL}'>
+      <img class="photo" src='${window[getParameter('user')].avatarURL}'>
     </div>
     <div class="tweet-stats">
       <div class="tweet-upper">
         <div>
-          <h3 class="tweet-display-name">${getDisplayName(window[getUsers('user')])}</h3>
+          <h3 class="tweet-display-name">${getDisplayName(window[getParameter('user')])}</h3>
         </div>
         <div>
-          <p class="tweet-user-name">${window[getUsers('user')].userName}</p>
+          <p class="tweet-user-name">${window[getParameter('user')].userName}</p>
         </div>
         <div>
           <p class="tweet-time">${new Date(tweetTime[i]).toLocaleString()}</p>
@@ -212,7 +214,7 @@ if (window[getUsers('user')].tweets.length > 0) {
   })
 } else {
   tweets.innerHTML = `
-    <p class="no-tweets">${window[getUsers('user')].userName} hasnt tweeted yet</p>`
+    <p class="no-tweets">${window[getParameter('user')].userName} hasnt tweeted yet</p>`
 }
 
 window.onscroll = function () {
