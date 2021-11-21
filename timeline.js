@@ -1,5 +1,5 @@
 var users = {
-  user1 : {
+  user1: {
     userName: '@elonmusk',
     displayName: 'Elon Musk',
     joinedDate: 'June 2009',
@@ -7,7 +7,7 @@ var users = {
     followerCount: 47900000,
     avatarURL: 'assets/elonmusk.jpg',
     coverPhotoURL: 'assets/elonmusk-cover.jpeg',
-    verified: true,
+    isVerified: true,
     tweets: [{
         text: 'I am the first to reach 200 Billion dollars, pretty cool',
         timestamp: '09/02/2021 10:21:19'
@@ -26,8 +26,8 @@ var users = {
       },
     ],
   },
-  
-  user2 : {
+
+  user2: {
     userName: '@BillGates',
     displayName: 'Bill Gates',
     joinedDate: 'June 2009',
@@ -35,7 +35,7 @@ var users = {
     followerCount: 53800000,
     avatarURL: 'assets/billgates.jpg',
     coverPhotoURL: 'assets/billgates-cover.jpeg',
-    verified: true,
+    isVerified: true,
     tweets: [{
         text: 'Everybody asks, how is the next Windows coming along? But nobody asks how is Bill? :/',
         timestamp: '2/10/2021 00:01:20'
@@ -50,7 +50,7 @@ var users = {
       }
     ]
   },
-  user3 : {
+  user3: {
     userName: '@mannycosta',
     displayName: 'Manny Costa',
     joinedDate: 'May 2011',
@@ -58,7 +58,7 @@ var users = {
     followerCount: 1928,
     avatarURL: 'assets/code.jpg',
     coverPhotoURL: 'assets/baseball.jpg',
-    verified: false,
+    isVerified: false,
     tweets: [{
         text: 'This is my dynamic twitter project',
         timestamp: '2/10/2021 00:01:20'
@@ -101,61 +101,44 @@ var users = {
 
 
 var allTweets = []
-var tweetText = []
-var tweetTime = []
-var userId = []
-
-
-
 for (var key in users) {
-  userId.push(users[key].displayName)
   for (var text of users[key].tweets) {
+    Object.assign(text, {user : key})
+    Object.assign(text, users[key]);
     allTweets.push(text)
-    
   }
 }
 
-allTweets.sort(function(a, b) {
+allTweets.sort(function (a, b) {
   var c = new Date(a.timestamp);
   var d = new Date(b.timestamp);
-  return c-d;
+  return c - d;
 });
-
 allTweets.reverse()
 
-
-
-
-
-
-function isVerified(user) {
-  if (user === true) {
-    return users[key].displayName + ' <i class="bi bi-patch-check-fill"></i>'
-  } else {
-    return users[key].displayName
-  }
-}
 var tweets = document.querySelector('.timeline-tweets')
 
-userId.forEach(function (user, i) {
-  console.log(user, i)
-})
-
-
 allTweets.forEach(function (tweet, i) {
+  function getDisplayName() {
+    if (tweet.isVerified) {
+      return tweet.displayName + ' <i class="bi bi-patch-check-fill"></i>'
+    } else {
+      return tweet.displayName
+    }
+  }
   var rowDiv = document.createElement('div');
   rowDiv.className = "tweet-content"
   rowDiv.innerHTML = `
   <div class="tweet-photo">
-    <img class="photo" src='${users[key].avatarURL}'>
+    <img class="photo" src='${tweet.avatarURL}'>
   </div>
   <div class="tweet-stats">
     <div class="tweet-upper">
       <div>
-        <h3 class="tweet-display-name">${isVerified(users[key].verified)}</h3>
+        <a href="index.html?user=${tweet.user}"><h3 class="tweet-display-name">${getDisplayName(tweet.displayName)}</h3></a>
       </div>
       <div>
-        <p class="tweet-user-name">${users[key].userName}</p>
+        <p class="tweet-user-name">${tweet.userName}</p>
       </div>
       <div>
         <p class="tweet-time">${new Date(tweet.timestamp).toLocaleString()}</p>
@@ -168,4 +151,6 @@ allTweets.forEach(function (tweet, i) {
     </div>
   </div>
     `;
-  tweets.appendChild(rowDiv) } )
+  tweets.appendChild(rowDiv);
+})
+

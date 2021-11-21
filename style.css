@@ -101,7 +101,6 @@ h2 {
   opacity: .90;
   transition: opacity .25s ease-in-out;
 }
-
 .header-name {
   width: 454px;
 }
@@ -255,6 +254,11 @@ p {
 .tweet-upper {
   display: flex;
   margin-bottom: 5px;
+}
+
+.tweet-upper a {
+  color: inherit;
+  text-decoration: none;
 }
 
 .tweet-lower {
